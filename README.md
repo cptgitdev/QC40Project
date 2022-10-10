@@ -6,5 +6,7 @@
 4. git push -u origin 'main'
 
 
-xxx
+# Others
+git pull --rebase origin main
+git push origin main
 
