@@ -9,6 +9,7 @@
     "@mui/material": "^5.10.8",
     "@mui/x-data-grid": "^5.17.6",
     "@react-hook/debounce": "^4.0.0",
+    "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -41,7 +42,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=8081 react-scripts start",
+    "start": "PORT=8083 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

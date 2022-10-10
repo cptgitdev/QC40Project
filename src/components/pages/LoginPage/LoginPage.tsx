@@ -4,11 +4,19 @@ import TextField from "@mui/material/TextField";
 import {Formik,FormikProps} from "formik"
 import {User} from "../../../types/user.type"
 import Link from "@mui/material/Link";
-import {Link as RouterLink} from "react-router-dom"
+import {Link as RouterLink,useNavigate} from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { RootReducer } from "../../../reducers";
+import * as loginActions from "../../../actions/login.action"
 
 type LoginProps = {};
 
 function LoginPage(props: LoginProps) {
+  //const history=useNavigate();
+  const dispatch=useDispatch();
+  const loginReducer=useSelector((state:RootReducer)=>state.loginReducer);
+
+
   const classed: any = {
     root: { display: "flex", justifyContent: "center", alignItems: "center",paddingTop:2 },
     submitBtn: { marginTop: 4 },
@@ -79,8 +87,9 @@ function LoginPage(props: LoginProps) {
             </Typography>
             <Formik
              initialValues={initialValue}
-             onSubmit={()=>{
-
+             onSubmit={async (values,{setSubmitting})=>{
+                //dispatch(loginActions.login(values));
+                setSubmitting(false);
              }}
             >
               {(props)=>showForm(props)}
