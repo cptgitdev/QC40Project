@@ -1,29 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Box, Button, Card, CardContent, CardMedia, Grid, Typography} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import {Formik,FormikProps} from "formik"
 import {User} from "../../../types/user.type"
 import Link from "@mui/material/Link";
-import {Link as RouterLink,useNavigate} from "react-router-dom"
+import {Link as RouterLink,Navigate,useNavigate} from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import { RootReducer } from "../../../reducers";
-import * as loginActions from "../../../actions/login.action"
+import {authenSelector, login} from "../../../slices/Authen/authenSlice";
+
+
+
 
 type LoginProps = {};
 
 function LoginPage(props: LoginProps) {
-  //const history=useNavigate();
+
   const dispatch=useDispatch();
-  const loginReducer=useSelector((state:RootReducer)=>state.loginReducer);
-
-
+  const navigate=useNavigate();
   const classed: any = {
     root: { display: "flex", justifyContent: "center", alignItems: "center",paddingTop:2 },
     submitBtn: { marginTop: 4 },
     cancelBtn: { marginTop: 2 },
   };
 
-  const initialValue:User={username:"Noah x",password:""};
+  const {isLogin}=useSelector(authenSelector);
+  React.useEffect(()=>{
+    if(isLogin)navigate('/Home');
+  },[isLogin]);
+
+  // useEffect(()=>{
+  //   if(user.isLogin){
+  //     navigate('/Home');
+  //   }else{
+  //     console.log('Login : false')
+  //   }
+  // },[])
+
+  const initialValue:User={username:"sathaporn",password:"xxx"};
 
   const showForm=({values,handleChange,handleSubmit,setFieldValue,isSubmitting}:FormikProps<User>)=>{
     return (
@@ -87,9 +100,17 @@ function LoginPage(props: LoginProps) {
             </Typography>
             <Formik
              initialValues={initialValue}
-             onSubmit={async (values,{setSubmitting})=>{
-                //dispatch(loginActions.login(values));
-                setSubmitting(false);
+             onSubmit={(values,{setSubmitting})=>{
+
+                dispatch(login(values));
+                // if(user.isLogin){
+                //   navigate('/Home');
+                // }else{
+
+                // }
+            
+
+                
              }}
             >
               {(props)=>showForm(props)}

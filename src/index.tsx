@@ -3,19 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { applyMiddleware, Middleware, createStore } from "redux";
-import thunk from "redux-thunk";
-import logger from "redux-logger";
-import reducers from "./reducers";
+import { persistor,store } from "./apps/store";
 import { Provider } from "react-redux";
-
-let middleware: Middleware[] = [thunk];
-
-if (process.env.REACT_APP_IS_PRODUCTION !== "1") {
-  middleware.push(logger);
-}
-
-export const store = createStore(reducers, applyMiddleware(...middleware));
+import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -24,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+    <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
